@@ -27,7 +27,7 @@ const createSendToken = (user, statusCode, res) => {
     status: 'success',
     token,
     data: {
-      user: newUser
+      user
     }
   });
 };
@@ -36,7 +36,8 @@ exports.signup = catchAsync(async (req, res, next) => {
     name: req.body.name,
     email: req.body.email,
     password: req.body.password,
-    confirmPassword: req.body.confirmPassword
+    confirmPassword: req.body.confirmPassword,
+    role: req.body.role
   });
   createSendToken(newUser, 201, res);
 });
@@ -105,6 +106,7 @@ exports.protect = catchAsync(async (req, res, next) => {
   }
   //   grant access to protected route
   req.user = currentUser;
+
   next();
 });
 
